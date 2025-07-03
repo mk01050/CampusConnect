@@ -24,9 +24,9 @@
     </head>
     <body>
         
-    <div class="main">
+    
         <h3>Welcome, <%= user.getName() %>!</h3>
         <p>Select an option from the sidebar to manage your tasks.</p>
-    </div>
+    
     </body>
 </html>

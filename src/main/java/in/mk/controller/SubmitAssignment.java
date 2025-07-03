@@ -75,22 +75,21 @@ public class SubmitAssignment extends HttpServlet {
                     .setParameter("sid", studentId)
                     .uniqueResultOptional();
 
-            if (existing != null) {
+            if (existing.isPresent()) {
 
                 StudentSubmission exist = existing.get();
                 exist.setFilePath(filePath);
                 session.update(exist);
-                transaction.commit();
+                
             } else {
                 StudentSubmission submission = new StudentSubmission();
                 submission.setAssignmentTitle(assignmentTitle);
                 submission.setStudentId(studentId);
                 submission.setFilePath(filePath);
                 session.save(submission);
-                transaction.commit();
-            }
+                }
 
-            
+            transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();

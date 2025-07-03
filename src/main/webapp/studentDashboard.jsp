@@ -14,102 +14,58 @@
     <head>
         <title>Student Dashboard</title>
         <style>
-            
             body {
                 margin: 0;
-                font-family: Arial, sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f0f2f5;
+                color: #333;
             }
             .navbar {
-                background-color: #2c3e50;
-                padding: 1rem;
+                height: 64px;
+                background: linear-gradient(90deg, #6f6fff, #6dd5ed);
+                padding: 0 2rem;
                 color: white;
-            }
-            .sidebar {
-                width: 200px;
-                height: 100vh;
-                background-color: #34495e;
-                color: white;
-                float: left;
-                padding-top: 20px;
+                font-size: 1.3rem;
+                font-weight: 600;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 position: fixed;
-            }
-            .sidebar a {
-                display: block;
-                color: white;
-                padding: 12px 20px;
-                text-decoration: none;
-            }
-            .sidebar a:hover {
-                background-color: #1abc9c;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
             }
             .main {
                 margin-left: 200px;
-                padding: 20px;
+                padding: 100px 40px 40px 40px;
+                background-color: #f0f2f5;
+                min-height: 100vh;
             }
-
-            body {
-                margin: 0;
-                font-family: Arial;
-                display: flex;
+            .content-box {
+                background-color: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+                transition: transform 0.2s ease;
             }
-
-            .sidebar {
-                width: 220px;
-                height: 100vh;
-                background: #2C3E50;
-                padding-top: 20px;
-                color: white;
+            .content-box:hover {
+                transform: translate(-3px,-3px);
             }
-
-            .sidebar h2 {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .sidebar a {
-                display: block;
-                padding: 12px 20px;
-                text-decoration: none;
-                color: white;
-                transition: 0.3s;
-            }
-
-            .sidebar a:hover {
-                background: #34495E;
-            }
-
-            .main {
-                flex: 1;
-                padding: 20px;
-                background: #ecf0f1;
-            }
-
-            .navbar {
-                height: 60px;
-                background: #2980B9;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 20px;
-                color: white;
-            }
-
-            .content {
-                margin-top: 20px;
-            }
-            
-            
         </style>
     </head>
     <body>
 
-        <%@ include file="includes/navbar.jsp" %>
+        <%@ include file="includes/studentNavbar.jsp" %>
         <%@ include file="includes/studentSidebar.jsp" %>
-        <div class="content">
-            <jsp:include page="${param.page != null ? param.page : 'studentHome.jsp'}" />
+        <div class="main">
+            <div class="content-box">
+                <jsp:include page="${param.page != null ? param.page : 'studentHome.jsp'}" />
+            </div>
         </div>
 
-        <%@ include file="includes/footer.jsp" %>
+
 
     </body>
 </html>

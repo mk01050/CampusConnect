@@ -113,7 +113,7 @@
     </style>
 </head>
 <body>
-    <div class="brand">Broodl</div>
+    <div class="brand">Campus Connect</div>
 
     <h2>Login</h2>
     <p class="subtitle">You're one step away!</p>

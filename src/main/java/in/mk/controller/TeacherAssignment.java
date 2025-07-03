@@ -29,54 +29,62 @@ import org.hibernate.Transaction;
 @MultipartConfig
 @WebServlet(name = "TeacherAssignment", urlPatterns = {"/uploadAssignment"})
 public class TeacherAssignment extends HttpServlet {
-    
+
     private static final String SAVE_DIR = "assignments";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String appPath = request.getServletContext().getRealPath("");
-        String savePath = appPath + File.separator + SAVE_DIR;
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) fileSaveDir.mkdir();
-        
+
         Part filePart = request.getPart("file");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String filePath = SAVE_DIR + File.separator + fileName;
-        
+        String filePath = null; // default to null
+
+        if (filePart != null) {
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String appPath = request.getServletContext().getRealPath("");
+            String savePath = appPath + File.separator + SAVE_DIR;
+
+            File fileSaveDir = new File(savePath);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdir();
+            }
+
+            filePart.write(savePath + File.separator + fileName);
+            filePath = SAVE_DIR + File.separator + fileName;
+        }
+
+
         
         String title = request.getParameter("title");
         String instructions = request.getParameter("instructions");
         String dueDate = request.getParameter("dueDate");
-        
-        filePart.write(savePath + File.separator + fileName);
-        
+
+     
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        
+
         Assignment assignment = new Assignment();
         assignment.setTitle(title);
         assignment.setInstructions(instructions);
         assignment.setDueDate(Date.valueOf(dueDate));
-        assignment.setFilePath(filePath);
+        if(filePath!=null){assignment.setFilePath(filePath);}
+        
         assignment.setCreatedAt(new java.util.Date());
-                   
-        try{
+
+        try {
             session.persist(assignment);
             transaction.commit();
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
-        }
-        finally{
+        } finally {
             session.close();
             response.sendRedirect("teacherDashboard.jsp?page=teacherAssignment.jsp");
 
         }
-        
+
     }
 
-   
 }

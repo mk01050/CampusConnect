@@ -16,6 +16,7 @@
 
         <!-- Mapping -->
         <mapping class="in.mk.model.Student"/>
+        <mapping class="in.mk.model.StudentGrade"/>
         <mapping class="in.mk.model.Assignment"/>
         <mapping class="in.mk.model.StudentSubmission"/>
         <mapping class="in.mk.model.Notification"/>
